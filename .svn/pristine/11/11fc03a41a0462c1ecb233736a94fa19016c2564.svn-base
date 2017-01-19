@@ -1,0 +1,63 @@
+package com.willian.yunmusic.fragment;
+
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+
+import com.willian.yunmusic.R;
+
+/**
+ * 位于界面底部的歌曲播放控制器
+ */
+
+public class QuickControlFragment extends BaseFragment implements View.OnClickListener {
+
+    private View mView;
+    // 播放列表
+    private ImageView mPlayQueue;
+    // 播放或停止
+    private ImageView mPlayControl;
+    // 下一首
+    private ImageView mPlayNext;
+
+    private static QuickControlFragment mControlFragment;
+
+    public static QuickControlFragment getInstance() {
+        if (mControlFragment == null) {
+            mControlFragment = new QuickControlFragment();
+        }
+        return mControlFragment;
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        mView = inflater.inflate(R.layout.include_bottom_music, container, false);
+
+        initView();
+
+        return mView;
+    }
+
+    private void initView() {
+        mPlayQueue = (ImageView) mView.findViewById(R.id.iv_play_list);
+        mPlayControl = (ImageView) mView.findViewById(R.id.iv_play_control);
+        mPlayNext = (ImageView) mView.findViewById(R.id.iv_play_next);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.iv_play_list:
+
+                break;
+            case R.id.iv_play_control:
+
+                break;
+            case R.id.iv_play_next:
+
+                break;
+        }
+    }
+}

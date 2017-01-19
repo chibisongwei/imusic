@@ -1,0 +1,93 @@
+package com.willian.yunmusic.service;
+
+import android.app.Service;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.os.IBinder;
+import android.os.RemoteException;
+
+import com.wilian.yunmusic.aidl.IPlayerService;
+import com.willian.yunmusic.constant.Constant;
+import com.willian.yunmusic.manager.MediaManager;
+import com.willian.yunmusic.receiver.MusicPlayReceiver;
+import com.willian.yunmusic.util.LoggerUtil;
+
+/**
+ * 音乐播放后台服务
+ */
+
+public class PlayerService extends Service {
+
+    private static final String TAG = "PlayerService";
+
+    private MusicPlayReceiver mMusicPlayReceiver;
+
+    private MediaManager mMediaManager;
+
+    private IBinder mIBinder = new ServerStub();
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        LoggerUtil.showLog(TAG, "=====onCreate=====", 6);
+        mMediaManager = new MediaManager(this);
+        // 动态注册广播
+        mMusicPlayReceiver = new MusicPlayReceiver();
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(Constant.LOCAL_BROADCAST);
+        registerReceiver(mMusicPlayReceiver,intentFilter);
+    }
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        LoggerUtil.showLog(TAG, "=====onStartCommand=====", 6);
+        return super.onStartCommand(intent, flags, startId);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        LoggerUtil.showLog(TAG, "=====onDestroy=====", 6);
+        unregisterReceiver(mMusicPlayReceiver);
+    }
+
+    /**
+     * 将Service与Activity进行绑定
+     *
+     * @param intent
+     * @return
+     */
+    @Override
+    public IBinder onBind(Intent intent) {
+        return mIBinder;
+    }
+
+    private class ServerStub extends IPlayerService.Stub {
+
+
+        @Override
+        public boolean playByIndex(int position) throws RemoteException {
+            return mMediaManager.playMusicByIndex(position);
+        }
+
+        @Override
+        public boolean playById(int id) throws RemoteException {
+            return mMediaManager.playMusicById(id);
+        }
+
+        @Override
+        public boolean pause() throws RemoteException {
+            return mMediaManager.pauseMusic();
+        }
+
+        @Override
+        public boolean prev() throws RemoteException {
+            return mMediaManager.previousMusic();
+        }
+
+        @Override
+        public boolean next() throws RemoteException {
+            return mMediaManager.nextMusic();
+        }
+    }
+}

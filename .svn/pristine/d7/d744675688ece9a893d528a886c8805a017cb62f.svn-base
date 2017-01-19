@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group
+        android:id="@+id/top_group"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/item_msg"
+            android:icon="@mipmap/topmenu_icn_msg"
+            android:title="@string/my_message" />
+        <item
+            android:id="@+id/item_store"
+            android:icon="@mipmap/topmenu_icn_store"
+            android:title="@string/integral_mall" />
+        <item
+            android:id="@+id/item_member"
+            android:icon="@mipmap/topmenu_icn_member"
+            android:title="@string/member_center" />
+        <item
+            android:id="@+id/item_free"
+            android:icon="@mipmap/topmenu_icn_free"
+            android:title="@string/flow_free" />
+    </group>
+
+    <group
+        android:id="@+id/bottom_group"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/item_identify"
+            android:icon="@mipmap/topmenu_icn_identify"
+            android:title="@string/identify_music" />
+        <item
+            android:id="@+id/item_skin"
+            android:icon="@mipmap/topmenu_icn_skin"
+            android:title="@string/theme_skin" />
+        <item
+            android:id="@+id/item_night"
+            android:icon="@mipmap/topmenu_icn_night"
+            android:title="@string/night_mode" />
+        <item
+            android:id="@+id/item_time"
+            android:icon="@mipmap/topmenu_icn_time"
+            android:title="@string/stop_play" />
+        <item
+            android:id="@+id/item_clock"
+            android:icon="@mipmap/topmenu_icn_clock"
+            android:title="@string/music_clock" />
+        <item
+            android:id="@+id/item_driver"
+            android:icon="@mipmap/topmenu_icn_cloud"
+            android:title="@string/driver_mode" />
+        <item
+            android:id="@+id/item_cloud"
+            android:icon="@mipmap/topmenu_icn_cloud"
+            android:title="@string/music_disk" />
+    </group>
+
+
+</menu>

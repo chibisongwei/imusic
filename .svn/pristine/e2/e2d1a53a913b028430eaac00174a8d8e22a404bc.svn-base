@@ -1,0 +1,13 @@
+<resources>
+    <dimen name="toolbar_title_text_size">16dp</dimen>
+    <dimen name="toolbar_sub_title_text_size">12dp</dimen>
+
+    <dimen name="title_text_size">20sp</dimen>
+    <dimen name="sub_title_text_size">18sp</dimen>
+    <dimen name="content_text_size">16sp</dimen>
+    <dimen name="other_text_size">14sp</dimen>
+    <dimen name="caption_text_size">12sp</dimen>
+
+    <dimen name="top_title_bar_height">48dp</dimen>
+    <dimen name="bottom_action_bar_height">48dp</dimen>
+</resources>

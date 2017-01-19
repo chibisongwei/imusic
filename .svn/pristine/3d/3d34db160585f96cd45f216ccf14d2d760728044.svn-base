@@ -1,0 +1,9 @@
+package com.willian.yunmusic.constant;
+
+/**
+ * 常量定义类
+ */
+public class Constant {
+    // 是否打印日志
+    public static final boolean IS_SHOW_LOG = true;
+}

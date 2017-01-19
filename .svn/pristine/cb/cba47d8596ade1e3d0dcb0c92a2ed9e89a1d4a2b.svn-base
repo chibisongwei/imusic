@@ -1,0 +1,91 @@
+package com.willian.yunmusic.activity;
+
+import android.content.IntentFilter;
+import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
+
+import com.willian.yunmusic.R;
+import com.willian.yunmusic.constant.Constant;
+import com.willian.yunmusic.fragment.QuickControlFragment;
+import com.willian.yunmusic.receiver.PlaybackReceiver;
+
+/**
+ * Activity基类
+ */
+
+public class BaseActivity extends AppCompatActivity {
+
+    private QuickControlFragment mControlFragment;
+
+    private PlaybackReceiver mPlaybackReceiver;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        mPlaybackReceiver = new PlaybackReceiver(this);
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(Constant.EMPTY_PLAY_QUEUE);
+        intentFilter.addAction(Constant.EMPTY_PLAY_QUEUE);
+        intentFilter.addAction(Constant.EMPTY_PLAY_QUEUE);
+        intentFilter.addAction(Constant.EMPTY_PLAY_QUEUE);
+        intentFilter.addAction(Constant.EMPTY_PLAY_QUEUE);
+        // 动态注册广播接收器
+        registerReceiver(mPlaybackReceiver, intentFilter);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        // 取消注册
+        unregisterReceiver(mPlaybackReceiver);
+    }
+
+    /**
+     * 显示或隐藏底部播放控制栏
+     */
+    protected void showQuickControl(boolean isShow) {
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        if (isShow) {
+            if (mControlFragment == null) {
+                mControlFragment = QuickControlFragment.getInstance();
+                fragmentTransaction.add(R.id.layout_bottom, mControlFragment);
+            } else {
+                fragmentTransaction.show(mControlFragment);
+                fragmentTransaction.commitAllowingStateLoss();
+            }
+        } else {
+            fragmentTransaction.hide(mControlFragment);
+            fragmentTransaction.commitAllowingStateLoss();
+        }
+    }
+
+    /**
+     * 更新歌曲信息
+     */
+    public void updateMusicInfo() {
+
+    }
+
+    /**
+     * 更新播放列表
+     */
+    public void updatePlayQueue() {
+
+    }
+
+    /**
+     * 更新歌曲播放时间
+     */
+    public void updateMusicTime() {
+
+    }
+
+    /**
+     * 更新歌曲缓冲进度
+     */
+    public void updateBufferProgress() {
+
+    }
+}

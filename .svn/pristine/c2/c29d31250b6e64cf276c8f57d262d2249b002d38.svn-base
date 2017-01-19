@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="8dp">
+
+        <View
+            android:layout_width="4dp"
+            android:layout_height="20dp"
+            android:background="@color/bg_red"></View>
+
+        <TextView
+            style="@style/tv_content_style"
+            android:layout_marginStart="4dp"
+            android:text="@string/user_top" />
+    </LinearLayout>
+
+    <com.willian.yunmusic.widget.WrapHeightListView
+        android:id="@+id/lv_user_top"
+        style="@style/lv_style"
+        android:layout_height="wrap_content" />
+</LinearLayout>

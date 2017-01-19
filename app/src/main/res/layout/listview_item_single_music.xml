@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_gray2dark_selector"
+    android:paddingLeft="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingRight="16dp">
+
+        <ImageView
+            android:id="@+id/icon_play"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:scaleType="centerCrop"
+            android:layout_marginRight="16dp"
+            android:src="@mipmap/song_play_icon" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_music_title"
+                style="@style/tv_content_style"/>
+
+            <TextView
+                android:id="@+id/tv_music_artist"
+                style="@style/tv_caption_style"
+                android:layout_marginTop="8dp"/>
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/icon_more"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:src="@mipmap/list_icn_more" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_alignParentBottom="true"
+        android:background="@color/divider_color" />
+</RelativeLayout>

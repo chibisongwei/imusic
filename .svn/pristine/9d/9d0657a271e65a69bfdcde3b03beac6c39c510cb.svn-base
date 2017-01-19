@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="transparent">#00000000</color>
+
+    <color name="bg_white">#ffffff</color>
+    <color name="bg_black">#000000</color>
+    <color name="bg_gray">#f2f5f5</color>
+    <color name="bg_gray_dark">#eeeeee</color>
+    <color name="bg_red">#ce3d39</color>
+
+    <color name="text_white">#ffffff</color>
+    <color name="text_black">#232323</color>
+    <color name="text_orange">#ff8033</color>
+    <color name="text_gray">#7d7d7d</color>
+    <color name="text_red">#ce3d3a</color>
+
+    <color name="theme_color">#ffce3d3a</color>
+
+    <color name="toolbar_title_text_color">#ffffffff</color>
+    <color name="toolbar_sub_title_text_color">#ffffffff</color>
+
+    <color name="normalBackground">#fff2f4f5</color>
+
+    <color name="divider_color">#d6d6d6</color>
+</resources>

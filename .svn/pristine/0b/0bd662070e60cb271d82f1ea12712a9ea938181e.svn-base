@@ -1,0 +1,39 @@
+package com.willian.yunmusic.fragment;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+
+import com.wilian.yunmusic.aidl.IPlayerService;
+import com.willian.yunmusic.activity.LocalMusicActivity;
+
+/**
+ * 基类Fragment
+ */
+public class BaseFragment extends Fragment {
+
+    // 歌曲播放服务
+    private IPlayerService mPlayerService;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        if (activity instanceof LocalMusicActivity) {
+            mPlayerService = ((LocalMusicActivity) activity).getPlayService();
+        }
+    }
+
+    /**
+     * 获取歌曲播放服务
+     *
+     * @return
+     */
+    protected IPlayerService getPlayService() {
+        return mPlayerService;
+    }
+}

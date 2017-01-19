@@ -1,0 +1,141 @@
+package com.willian.yunmusic.fragment;
+
+import android.content.ContentResolver;
+import android.database.Cursor;
+import android.net.Uri;
+import android.os.Bundle;
+import android.os.Environment;
+import android.os.Handler;
+import android.os.Message;
+import android.provider.MediaStore;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.Toast;
+
+import com.willian.yunmusic.R;
+import com.willian.yunmusic.adapter.SingleMusicAdpater;
+import com.willian.yunmusic.bean.MusicInfo;
+import com.willian.yunmusic.util.LoggerUtil;
+import com.willian.yunmusic.util.PlayUtil;
+import com.willian.yunmusic.util.ToastUtil;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * 单曲
+ */
+
+public class SingleMusicFragment extends BaseFragment {
+
+    private static final String TAG = "SingleMusicFragment";
+
+    private View mView;
+
+    private ListView mListView;
+
+    private SingleMusicAdpater mMusicAdpater;
+
+    private List<MusicInfo> mMusicList = new ArrayList<>();
+
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        mView = inflater.inflate(R.layout.fragment_single_song, container, false);
+
+        initView();
+        // 加载本地音乐
+        loadLocalMusic();
+        // 事件处理
+        handleEvent();
+
+        return mView;
+    }
+
+    private void handleEvent() {
+        // 点击歌曲列表，播放音乐
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        PlayUtil.play(mMusicList, position);
+                    }
+                }).start();
+            }
+        });
+    }
+
+    private void initView() {
+        mListView = (ListView) mView.findViewById(R.id.lv_single_song);
+    }
+
+    /**
+     * 加载本地音乐
+     */
+    private void loadLocalMusic() {
+        if (!Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+            ToastUtil.showToast(getActivity(), "未检测到SD卡", Toast.LENGTH_SHORT);
+            return;
+        }
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Uri mMusicUri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
+                ContentResolver mContentResolver = getActivity().getContentResolver();
+                Cursor mCursor = mContentResolver.query(mMusicUri, null,
+                        MediaStore.Audio.Media.MIME_TYPE + "=? or "
+                                + MediaStore.Audio.Media.MIME_TYPE + "=?",
+                        new String[]{"mp3", "audio/mpeg"},
+                        MediaStore.Audio.Media.DEFAULT_SORT_ORDER);
+                while (mCursor.moveToNext()) {
+                    // ID
+                    long id = mCursor.getLong(mCursor.getColumnIndex(MediaStore.Audio.Media._ID));
+                    // 标题
+                    String title = mCursor.getString(mCursor.getColumnIndex(MediaStore.Audio.Media.TITLE));
+                    // 艺术家
+                    String artist = mCursor.getString(mCursor.getColumnIndex(MediaStore.Audio.Media.ARTIST));
+                    // 专辑
+                    String album = mCursor.getString(mCursor.getColumnIndex(MediaStore.Audio.Media.ALBUM));
+                    // 时长
+                    long duration = mCursor.getLong(mCursor.getColumnIndex(MediaStore.Audio.Media.DURATION));
+                    // 大小
+                    long size = mCursor.getLong(mCursor.getColumnIndex(MediaStore.Audio.Media.SIZE));
+                    // 路径
+                    String url = mCursor.getString(mCursor.getColumnIndex(MediaStore.Audio.Media.DATA));
+
+                    MusicInfo musicInfo = new MusicInfo();
+                    musicInfo.setMusicId(id);
+                    musicInfo.setMusicTitle(title);
+                    musicInfo.setMusicArtist(artist);
+                    musicInfo.setMusicAlbum(album);
+                    musicInfo.setMusicDuration(duration);
+                    musicInfo.setMusicSize(size);
+                    musicInfo.setMusicPath(url);
+                    mMusicList.add(musicInfo);
+
+                    LoggerUtil.showLog(TAG, "=====music path======" + url, 6);
+                }
+                mCursor.close();
+                mHandler.sendEmptyMessage(0x110);
+            }
+        }).start();
+    }
+
+    private Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            updateData();
+        }
+    };
+
+    private void updateData() {
+        mMusicAdpater = new SingleMusicAdpater(getActivity(), mMusicList);
+        mListView.setAdapter(mMusicAdpater);
+    }
+
+}

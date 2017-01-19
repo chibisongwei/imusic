@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/layout_known_user"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="@drawable/bg_white2gray_selector"
+        android:gravity="center_vertical"
+        android:paddingLeft="8dp">
+
+        <ImageView
+            android:id="@+id/iv_left_icon"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:scaleType="centerCrop" />
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp">
+
+            <TextView
+                android:id="@+id/tv_item_name"
+                style="@style/tv_content_style"
+                android:layout_centerVertical="true" />
+
+            <TextView
+                android:id="@+id/tv_item_caption"
+                style="@style/tv_caption_style"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="8dp"
+                android:layout_toRightOf="@id/tv_item_name"
+                android:visibility="gone" />
+
+            <ImageView
+                android:id="@+id/iv_right_icon"
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/list_icn_more"
+                android:visibility="gone" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_alignParentBottom="true"
+                android:background="@color/divider_color" />
+        </RelativeLayout>
+
+    </LinearLayout>
+</LinearLayout>

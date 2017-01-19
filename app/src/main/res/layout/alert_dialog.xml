@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:gravity="center_vertical">
+
+        <TextView
+            style="@style/tv_content_style"
+            android:text="@string/create_list" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/et_list_title"
+            style="@style/edit_text_style"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:hint="@string/input_song_list_title" />
+
+        <TextView
+            android:id="@+id/tv_text_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:text="0" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="/40" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp">
+
+        <Button
+            android:id="@+id/btn_submit"
+            style="@style/button_style"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="16dp"
+            android:enabled="false"
+            android:text="@string/submit" />
+
+        <Button
+            android:id="@+id/btn_cancel"
+            style="@style/button_style"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="16dp"
+            android:layout_toLeftOf="@id/btn_submit"
+            android:text="@string/cancel" />
+
+    </RelativeLayout>
+
+</LinearLayout>

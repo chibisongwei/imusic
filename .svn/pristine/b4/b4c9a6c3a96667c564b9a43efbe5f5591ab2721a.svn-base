@@ -1,0 +1,147 @@
+package com.willian.yunmusic.activity;
+
+import android.os.Bundle;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+
+import com.willian.yunmusic.BaseActivity;
+import com.willian.yunmusic.R;
+import com.willian.yunmusic.fragment.AlbumFragment;
+import com.willian.yunmusic.fragment.DirectoryFragment;
+import com.willian.yunmusic.fragment.SingerFragment;
+import com.willian.yunmusic.fragment.SingleMusicFragment;
+import com.willian.yunmusic.manager.TitleBarBuilder;
+import com.willian.yunmusic.util.PlayUtil;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * 本地音乐
+ */
+
+public class LocalMusicActivity extends BaseActivity implements View.OnClickListener {
+
+    private TabLayout mTabLayout;
+
+    private ViewPager mViewPager;
+
+    private TitleAdapter mTitleAdapter;
+
+    private SingleMusicFragment mSingleFragment;
+
+    private SingerFragment mSingerFragment;
+
+    private AlbumFragment mAlbumFragment;
+
+    private DirectoryFragment mDirectoryFragment;
+
+    private List<Fragment> mFragmentList = new ArrayList<Fragment>(4);
+
+    private List<String> mTitleList = new ArrayList<String>(4);
+
+    private ImageView mBackIcon;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_local_music);
+
+        new TitleBarBuilder(this)
+                .setTitleText(getResources().getString(R.string.local_music))
+                .setSearchIcon(R.mipmap.actionbar_search)
+                .setMoreIcon(R.mipmap.actionbar_more)
+                .build();
+
+        initData();
+
+        initView();
+        // 绑定服务
+        PlayUtil.bindService(this);
+    }
+
+    private void initView() {
+        mTabLayout = (TabLayout) findViewById(R.id.tl_local_music);
+        mViewPager = (ViewPager) findViewById(R.id.vp_local_music);
+        mTitleAdapter = new TitleAdapter(getSupportFragmentManager());
+        mViewPager.setAdapter(mTitleAdapter);
+        // 设置ViewPager缓存4个视图，避免Fragment被重复创建
+        mViewPager.setOffscreenPageLimit(4);
+        mTabLayout.setTabMode(TabLayout.MODE_FIXED);
+        mTabLayout.setupWithViewPager(mViewPager);
+
+        mBackIcon = (ImageView) findViewById(R.id.icon_back);
+        mBackIcon.setOnClickListener(this);
+    }
+
+    private void initData() {
+        mTitleList.add(getResources().getString(R.string.single_song));
+        mTitleList.add(getResources().getString(R.string.singer));
+        mTitleList.add(getResources().getString(R.string.album));
+        mTitleList.add(getResources().getString(R.string.directory));
+
+        if (mSingleFragment == null) {
+            mSingleFragment = new SingleMusicFragment();
+            mFragmentList.add(mSingleFragment);
+        }
+        if (mSingerFragment == null) {
+            mSingerFragment = new SingerFragment();
+            mFragmentList.add(mSingerFragment);
+        }
+        if (mAlbumFragment == null) {
+            mAlbumFragment = new AlbumFragment();
+            mFragmentList.add(mAlbumFragment);
+        }
+        if (mDirectoryFragment == null) {
+            mDirectoryFragment = new DirectoryFragment();
+            mFragmentList.add(mDirectoryFragment);
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.icon_back:
+                finish();
+                break;
+        }
+    }
+
+    private class TitleAdapter extends FragmentPagerAdapter {
+
+        public TitleAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return mFragmentList.get(position);
+        }
+
+        @Override
+        public int getCount() {
+            return mFragmentList.size();
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return mTitleList.get(position);
+        }
+
+        @Override
+        public void destroyItem(ViewGroup container, int position, Object object) {
+            super.destroyItem(container, position, object);
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
+}

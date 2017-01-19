@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_title_bar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/tool_bar"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:background="@color/theme_color">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginRight="16dp">
+
+            <ImageView
+                android:id="@+id/icon_back"
+                android:layout_width="24dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/toolbarItemBackground"
+                android:src="@mipmap/actionbar_back" />
+
+            <TextView
+                android:id="@+id/tv_title"
+                style="@style/tv_sub_title_style"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="16dp"
+                android:layout_toRightOf="@id/icon_back"
+                android:textColor="@color/text_white"
+                android:visibility="gone"/>
+
+            <ImageView
+                android:id="@+id/icon_more"
+                android:layout_width="24dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:src="@mipmap/actionbar_more"
+                android:visibility="gone"/>
+
+            <ImageView
+                android:id="@+id/icon_search"
+                android:layout_width="24dp"
+                android:layout_height="match_parent"
+                android:layout_marginRight="16dp"
+                android:layout_toLeftOf="@id/icon_more"
+                android:src="@mipmap/actionbar_search"
+                android:visibility="gone"/>
+
+            <TextView
+                android:id="@+id/tv_right"
+                style="@style/tv_sub_title_style"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"
+                android:textColor="@color/text_white"
+                android:visibility="gone"/>
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.Toolbar>
+
+</LinearLayout>

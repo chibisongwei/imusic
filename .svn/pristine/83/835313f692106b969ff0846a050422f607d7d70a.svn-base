@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="64dp"
+    android:background="@drawable/bg_white2gray_selector"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingLeft="8dp">
+
+    <ImageView
+        android:id="@+id/iv_song_list_icon"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:scaleType="centerCrop" />
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:paddingLeft="8dp"
+        android:paddingRight="16dp">
+
+        <TextView
+            android:id="@+id/tv_song_list_name"
+            style="@style/tv_other_style"
+            android:layout_marginTop="4dp"
+            android:text="@string/like_music" />
+
+        <TextView
+            android:id="@+id/tv_song_count"
+            style="@style/tv_caption_style"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="4dp"
+            android:text="@string/zero_count" />
+
+        <ImageView
+            android:id="@+id/iv_list_more_icon"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_alignParentBottom="true"
+            android:background="@color/divider_color" />
+    </RelativeLayout>
+
+</LinearLayout>

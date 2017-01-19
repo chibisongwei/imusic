@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="8dp">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/layout_known_user"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:background="@drawable/bg_white2gray_selector"
+                android:gravity="center_vertical"
+                android:paddingLeft="8dp">
+
+                <ImageView
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/msg_icn_user" />
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:paddingLeft="8dp">
+
+                    <TextView
+                        android:id="@+id/tv_known_user"
+                        style="@style/tv_content_style"
+                        android:layout_centerVertical="true"
+                        android:text="@string/known_user" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:layout_alignParentBottom="true"
+                        android:background="@color/divider_color" />
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_star_user"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:background="@drawable/bg_white2gray_selector"
+                android:gravity="center_vertical"
+                android:paddingLeft="8dp">
+
+                <ImageView
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/msg_icn_v" />
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:paddingLeft="8dp">
+
+                    <TextView
+                        android:id="@+id/tv_star_user"
+                        style="@style/tv_content_style"
+                        android:layout_centerVertical="true"
+                        android:text="@string/star_user" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:layout_alignParentBottom="true"
+                        android:background="@color/divider_color" />
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_music_daren"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:background="@drawable/bg_white2gray_selector"
+                android:gravity="center_vertical"
+                android:paddingLeft="8dp">
+
+                <ImageView
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/msg_icn_daren" />
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:paddingLeft="8dp">
+
+                    <TextView
+                        android:id="@+id/tv_music_daren"
+                        style="@style/tv_content_style"
+                        android:layout_centerVertical="true"
+                        android:text="@string/music_daren" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:layout_alignParentBottom="true"
+                        android:background="@color/divider_color" />
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <com.willian.yunmusic.widget.WrapHeightListView
+                android:id="@+id/lv_friends"
+                style="@style/lv_style"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

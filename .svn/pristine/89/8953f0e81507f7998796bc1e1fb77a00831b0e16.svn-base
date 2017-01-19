@@ -1,0 +1,78 @@
+package com.willian.yunmusic.bean;
+
+/**
+ * 音乐实体类
+ */
+
+public class MusicInfo {
+    // ID
+    private long musicId;
+    // 标题
+    private String musicTitle;
+    // 艺术家
+    private String musicArtist;
+    // 专辑
+    private String musicAlbum;
+    // 时长
+    private long musicDuration;
+    // 大小
+    private long musicSize;
+    // 路径
+    private String musicPath;
+
+    public long getMusicId() {
+        return musicId;
+    }
+
+    public void setMusicId(long musicId) {
+        this.musicId = musicId;
+    }
+
+    public String getMusicTitle() {
+        return musicTitle;
+    }
+
+    public void setMusicTitle(String musicTitle) {
+        this.musicTitle = musicTitle;
+    }
+
+    public String getMusicArtist() {
+        return musicArtist;
+    }
+
+    public void setMusicArtist(String musicArtist) {
+        this.musicArtist = musicArtist;
+    }
+
+    public String getMusicAlbum() {
+        return musicAlbum;
+    }
+
+    public void setMusicAlbum(String musicAlbum) {
+        this.musicAlbum = musicAlbum;
+    }
+
+    public long getMusicDuration() {
+        return musicDuration;
+    }
+
+    public void setMusicDuration(long musicDuration) {
+        this.musicDuration = musicDuration;
+    }
+
+    public long getMusicSize() {
+        return musicSize;
+    }
+
+    public void setMusicSize(long musicSize) {
+        this.musicSize = musicSize;
+    }
+
+    public String getMusicPath() {
+        return musicPath;
+    }
+
+    public void setMusicPath(String musicPath) {
+        this.musicPath = musicPath;
+    }
+}

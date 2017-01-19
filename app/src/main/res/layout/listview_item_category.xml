@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_gray"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp">
+
+        <ImageView
+            android:id="@+id/iv_category_icon"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/recommend_icn_recmd" />
+
+        <TextView
+            android:id="@+id/tv_category_name"
+            style="@style/tv_content_style"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="8dp"
+            android:layout_toRightOf="@id/iv_category_icon"
+            android:text="@string/recommend_song_list" />
+
+        <ImageView
+            android:id="@+id/iv_arrow"
+            android:layout_width="8dp"
+            android:layout_height="8dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/recommend_icn_arr" />
+
+        <TextView
+            style="@style/tv_caption_style"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="4dp"
+            android:layout_toLeftOf="@id/iv_arrow"
+            android:text="@string/more" />
+    </RelativeLayout>
+
+    <com.willian.yunmusic.widget.WrapGridView
+        android:padding="8dp"
+        android:id="@+id/gv_cover"
+        style="@style/gv_style" />
+
+</LinearLayout>

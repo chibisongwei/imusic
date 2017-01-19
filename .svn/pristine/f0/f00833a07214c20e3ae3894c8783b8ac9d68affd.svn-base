@@ -1,0 +1,268 @@
+package com.willian.yunmusic.manager;
+
+import android.content.Context;
+import android.content.Intent;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
+
+import com.willian.yunmusic.bean.MusicInfo;
+import com.willian.yunmusic.constant.Constant;
+import com.willian.yunmusic.util.MusicUtil;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
+/**
+ * 音频播放管理类
+ */
+public class MediaManager implements MediaPlayer.OnCompletionListener {
+
+    private Context mContext;
+
+    private MediaPlayer mMediaPlayer;
+
+    private static MediaManager mInstance;
+    // 音乐列表
+    private List<MusicInfo> mMusicList = new ArrayList<MusicInfo>();
+    // 当前播放列表索引
+    private int mCurIndex = -1;
+    // 当前状态
+    private int mCurState = 0;
+
+    private int mCurMusicId = -1;
+
+    private int mPlayMode;
+
+    private Random mRandom;
+
+    public MediaManager(Context context) {
+        this.mContext = context;
+        mMediaPlayer = new MediaPlayer();
+        mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+        mMediaPlayer.setOnCompletionListener(this);
+
+        mRandom = new Random();
+        mRandom.setSeed(System.currentTimeMillis());
+    }
+
+    /**
+     * 准备工作
+     *
+     * @param position
+     * @return
+     */
+    private boolean prepare(int position) {
+        mCurIndex = position;
+        mMediaPlayer.reset();
+        // 获取索引位置对应的音乐路径
+        String musicPath = mMusicList.get(position).getMusicPath();
+        try {
+            mMediaPlayer.setDataSource(musicPath);
+            mMediaPlayer.prepare();
+        } catch (IOException e) {
+            e.printStackTrace();
+            if (position < mMusicList.size()) {
+                position++;
+                playMusicById(mMusicList.get(position).getMusicId());
+            }
+            return false;
+        }
+        //sendBroadCast();
+        return true;
+    }
+
+    /**
+     * 根据索引播放音乐
+     */
+    public boolean playMusicByIndex(int position) {
+        if (mCurIndex == position) {
+            if (!mMediaPlayer.isPlaying()) {
+                mMediaPlayer.start();
+                mCurState = Constant.STATUS_PLAYING;
+            } else {
+                pauseMusic();
+            }
+            return true;
+        }
+        if (!prepare(position)) {
+            return false;
+        }
+        return replayMusic();
+    }
+
+    /**
+     * 根据ID播放音乐
+     */
+    public boolean playMusicById(int musicId) {
+        int position = MusicUtil.seekPosInListById(mMusicList, musicId);
+        mCurIndex = position;
+        if (mCurMusicId == musicId) {
+            if (!mMediaPlayer.isPlaying()) {
+                mMediaPlayer.start();
+                mCurState = Constant.STATUS_PLAYING;
+            } else {
+                pauseMusic();
+            }
+            return true;
+        }
+        if (!prepare(position)) {
+            return false;
+        }
+        return replayMusic();
+    }
+
+    /**
+     * 重新播放
+     */
+    public boolean replayMusic() {
+        if (mCurState == Constant.STATUS_INVALID || mCurState == Constant.STATUS_NOFILE) {
+            return false;
+        }
+        mMediaPlayer.start();
+        mCurState = Constant.STATUS_PLAYING;
+        return true;
+    }
+
+    /**
+     * 暂停播放
+     */
+    public boolean pauseMusic() {
+        if (mCurState != Constant.STATUS_PLAYING) {
+            return false;
+        }
+        mMediaPlayer.pause();
+        mCurState = Constant.STATUS_PAUSE;
+        return true;
+    }
+
+    /**
+     * 上一首
+     *
+     * @return
+     */
+    public boolean previousMusic() {
+        if (mCurState == Constant.STATUS_NOFILE) {
+            return false;
+        }
+        mCurIndex--;
+        mCurIndex = reversePosition(mCurIndex);
+        if (!prepare(mCurIndex)) {
+            return false;
+        }
+        return replayMusic();
+    }
+
+    /**
+     * 下一首
+     *
+     * @return
+     */
+    public boolean nextMusic() {
+        if (mCurState == Constant.STATUS_NOFILE) {
+            return false;
+        }
+        mCurIndex++;
+        mCurIndex = reversePosition(mCurIndex);
+        if (!prepare(mCurIndex)) {
+            return false;
+        }
+        return replayMusic();
+    }
+
+    /**
+     * 退出
+     */
+    public void releaseMusic() {
+        if (mMediaPlayer != null) {
+            mMediaPlayer.stop();
+            mMediaPlayer.release();
+            mMediaPlayer = null;
+        }
+        mCurIndex = -1;
+        mMusicList.clear();
+    }
+
+    /**
+     * 歌曲播放模式
+     *
+     * @param mp
+     */
+    @Override
+    public void onCompletion(MediaPlayer mp) {
+        switch (mPlayMode) {
+            case Constant.LIST_LOOP_PLAY:
+                nextMusic();
+                break;
+            case Constant.LIST_ORDER_PLAY:
+                if (mCurIndex != mMusicList.size() - 1) {
+                    nextMusic();
+                } else {
+                    prepare(mCurIndex);
+                }
+                break;
+            case Constant.LIST_RANDOM_PLAY:
+                int position = getRandomPosition();
+                if (position != -1) {
+                    mCurIndex = position;
+                } else {
+                    mCurIndex = 0;
+                }
+                if (prepare(mCurIndex)) {
+                    replayMusic();
+                }
+                break;
+            case Constant.SINGLE_LOOP_PLAY:
+                playMusicByIndex(mCurIndex);
+                break;
+        }
+    }
+
+    /**
+     * 获取随机索引位置
+     *
+     * @return
+     */
+    private int getRandomPosition() {
+        int size = mMusicList.size();
+        if (size == 0) {
+            return -1;
+        }
+        return Math.abs(mRandom.nextInt() % size);
+    }
+
+    /**
+     * 获取歌曲的列表索引
+     *
+     * @param pos
+     * @return
+     */
+    private int reversePosition(int pos) {
+        if (pos < 0) {
+            pos = mMusicList.size() - 1;
+        } else if (pos >= mMusicList.size()) {
+            pos = 0;
+        }
+        return pos;
+    }
+
+    /**
+     * 发送广播
+     */
+    private void sendBroadCast() {
+        Intent intent = new Intent(Constant.LOCAL_BROADCAST);
+        intent.putExtra("PlayState", mCurState);
+        intent.putExtra("PlayIndex", mCurIndex);
+        // 发送广播
+        mContext.sendBroadcast(intent);
+    }
+
+    public void setMusicList(List<MusicInfo> musicList){
+        this.mMusicList = musicList;
+    }
+
+    public List<MusicInfo> getMusicList() {
+        return mMusicList;
+    }
+}

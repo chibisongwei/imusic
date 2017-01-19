@@ -1,0 +1,183 @@
+package com.willian.yunmusic.activity;
+
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
+import android.content.ServiceConnection;
+import android.os.Bundle;
+import android.os.IBinder;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+
+import com.wilian.yunmusic.aidl.IPlayerService;
+import com.willian.yunmusic.BaseActivity;
+import com.willian.yunmusic.R;
+import com.willian.yunmusic.fragment.AlbumFragment;
+import com.willian.yunmusic.fragment.PlayFragment;
+import com.willian.yunmusic.fragment.DirectoryFragment;
+import com.willian.yunmusic.fragment.SingerFragment;
+import com.willian.yunmusic.fragment.SingleMusicFragment;
+import com.willian.yunmusic.manager.TitleBarBuilder;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * 本地音乐
+ */
+
+public class LocalMusicActivity extends BaseActivity implements View.OnClickListener {
+
+    private TabLayout mTabLayout;
+
+    private ViewPager mViewPager;
+
+    private TitileAdapter mTitleAdapter;
+
+    private SingleMusicFragment mSingleFragment;
+
+    private SingerFragment mSingerFragment;
+
+    private AlbumFragment mAlbumFragment;
+
+    private DirectoryFragment mDirectoryFragment;
+
+    private List<Fragment> mFragmentList = new ArrayList<Fragment>(4);
+
+    private List<String> mTitleList = new ArrayList<String>(4);
+
+    private ImageView mBackIcon;
+    // 在Activity与Service建立关联和解除关联的时候调用
+    private ServiceConnection mServiceConnection;
+    // AIDL 实现跨进程通信
+    private IPlayerService mPlayerService;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_local_music);
+
+        new TitleBarBuilder(this)
+                .setTitleText(getResources().getString(R.string.local_music))
+                .setSearchIcon(R.mipmap.actionbar_search)
+                .setMoreIcon(R.mipmap.actionbar_more)
+                .build();
+
+        initData();
+
+        initView();
+        // 绑定服务
+        bindMusicService();
+    }
+
+    /**
+     * 绑定歌曲播放服务
+     */
+    private void bindMusicService() {
+
+        mServiceConnection = new ServiceConnection() {
+            @Override
+            public void onServiceConnected(ComponentName name, IBinder service) {
+                mPlayerService = IPlayerService.Stub.asInterface(service);
+            }
+
+            @Override
+            public void onServiceDisconnected(ComponentName name) {
+
+            }
+        };
+
+        Intent intent = new Intent("com.willian.yunmusic.service.PlayerService");
+        // 绑定Activity与Service，Service的onCreate()方法会得到执行
+        bindService(intent, mServiceConnection, Context.BIND_AUTO_CREATE);
+    }
+
+    private void initView() {
+        mTabLayout = (TabLayout) findViewById(R.id.tl_local_music);
+        mViewPager = (ViewPager) findViewById(R.id.vp_local_music);
+        mTitleAdapter = new TitileAdapter(getSupportFragmentManager());
+        mViewPager.setAdapter(mTitleAdapter);
+        // 设置ViewPager缓存4个视图，避免Fragment被重复创建
+        mViewPager.setOffscreenPageLimit(4);
+        mTabLayout.setTabMode(TabLayout.MODE_FIXED);
+        mTabLayout.setupWithViewPager(mViewPager);
+
+        mBackIcon = (ImageView) findViewById(R.id.icon_back);
+        mBackIcon.setOnClickListener(this);
+    }
+
+    private void initData() {
+        mTitleList.add(getResources().getString(R.string.single_song));
+        mTitleList.add(getResources().getString(R.string.singer));
+        mTitleList.add(getResources().getString(R.string.album));
+        mTitleList.add(getResources().getString(R.string.directory));
+
+        if (mSingleFragment == null) {
+            mSingleFragment = new SingleMusicFragment();
+            mFragmentList.add(mSingleFragment);
+        }
+        if (mSingerFragment == null) {
+            mSingerFragment = new SingerFragment();
+            mFragmentList.add(mSingerFragment);
+        }
+        if (mAlbumFragment == null) {
+            mAlbumFragment = new AlbumFragment();
+            mFragmentList.add(mAlbumFragment);
+        }
+        if (mDirectoryFragment == null) {
+            mDirectoryFragment = new DirectoryFragment();
+            mFragmentList.add(mDirectoryFragment);
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.icon_back:
+                finish();
+                break;
+        }
+    }
+
+    private class TitileAdapter extends FragmentPagerAdapter {
+
+        public TitileAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return mFragmentList.get(position);
+        }
+
+        @Override
+        public int getCount() {
+            return mFragmentList.size();
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return mTitleList.get(position);
+        }
+
+        @Override
+        public void destroyItem(ViewGroup container, int position, Object object) {
+            super.destroyItem(container, position, object);
+        }
+    }
+
+    /**
+     * 获取服务
+     *
+     * @return
+     */
+    public IPlayerService getPlayService() {
+        return mPlayerService;
+    }
+}

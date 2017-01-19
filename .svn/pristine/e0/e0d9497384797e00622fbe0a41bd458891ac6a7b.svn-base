@@ -1,0 +1,41 @@
+package com.willian.yunmusic;
+
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.Volley;
+import com.willian.yunmusic.manager.ActivityManager;
+
+/**
+ *
+ */
+public class BaseActivity extends AppCompatActivity {
+
+    protected BaseApplication mApplication;
+
+    private ActivityManager activityManager = ActivityManager.getInstance();
+
+    protected RequestQueue mRequestQueue;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mApplication = (BaseApplication) getApplication();
+        activityManager.addActivity(this);
+        mRequestQueue = Volley.newRequestQueue(this);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        activityManager.removeActivity(this);
+    }
+
+    /**
+     * 用户注销时销毁所有Activity
+     */
+    public void logout() {
+        activityManager.finishAllActivity();
+    }
+}

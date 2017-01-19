@@ -1,0 +1,75 @@
+<resources>
+    <string name="app_name">YunMusic</string>
+
+    <string name="phone_login">手机号登陆</string>
+    <string name="register">注册</string>
+    <string name="other_login_type">其他登陆方式</string>
+
+    <string name="my_message">我的消息</string>
+    <string name="integral_mall">积分商城</string>
+    <string name="member_center">会员中心</string>
+    <string name="flow_free">在线听歌免流量</string>
+    <string name="identify_music">听歌识曲</string>
+    <string name="theme_skin">主题换肤</string>
+    <string name="night_mode">夜间模式</string>
+    <string name="stop_play">定时停止播放</string>
+    <string name="music_clock">音乐闹钟</string>
+    <string name="driver_mode">驾驶模式</string>
+    <string name="music_disk">我的音乐云盘</string>
+
+    <string name="setting">设置</string>
+    <string name="application">应用</string>
+
+    <string name="recommend">个性推荐</string>
+    <string name="song_sheet">歌单</string>
+    <string name="radio_station">主播电台</string>
+    <string name="rank_list">排行榜</string>
+
+    <string name="dynamic">动态</string>
+    <string name="nearby">附近</string>
+    <string name="fellow">好友</string>
+
+    <string name="recommend_song_list">推荐歌单</string>
+    <string name="more">更多</string>
+
+    <string name="local_music">本地音乐</string>
+    <string name="recent_play">最近播放</string>
+    <string name="download_manage">下载管理</string>
+    <string name="my_singer">我的歌手</string>
+    <string name="created_list">创建的歌单</string>
+    <string name="zero_count">0首</string>
+
+    <string name="like_music">我喜欢的音乐</string>
+    <string name="create_new_list">创建新的歌单</string>
+    <string name="manage_song_list">管理歌单</string>
+    <string name="create_list">新建歌单</string>
+    <string name="input_song_list_title">请输入歌单标题</string>
+    <string name="cancel">取消</string>
+    <string name="submit">提交</string>
+
+    <string name="known_user">认识的人</string>
+    <string name="star_user">明星用户</string>
+    <string name="music_daren">音乐达人</string>
+
+    <string name="all_sheet">全部歌单</string>
+    <string name="choose_type">选择分类</string>
+
+    <string name="official_top">官方榜</string>
+    <string name="global_top">全球榜</string>
+    <string name="user_top">用户榜</string>
+
+    <string name="personal_fm">私人FM</string>
+    <string name="recommend_song">每日歌曲推荐</string>
+    <string name="new_song_top">云音乐新歌榜</string>
+
+    <string name="star_host">明星做主播</string>
+
+    <string name="great_show_recommend">精彩节目推荐</string>
+    <string name="everyday_radio_chose">每天电台精选 - 订阅更精彩</string>
+    <string name="hot_radio">热门电台</string>
+
+    <string name="single_song">单曲</string>
+    <string name="singer">歌手</string>
+    <string name="album">专辑</string>
+    <string name="directory">文件夹</string>
+</resources>

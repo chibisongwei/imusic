@@ -1,0 +1,23 @@
+package com.willian.yunmusic.widget;
+
+import android.content.Context;
+import android.util.AttributeSet;
+import android.view.View;
+
+/**
+ * 歌词
+ */
+
+public class LyricView extends View {
+    public LyricView(Context context) {
+        super(context);
+    }
+
+    public LyricView(Context context, AttributeSet attrs) {
+        super(context, attrs);
+    }
+
+    public LyricView(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+    }
+}

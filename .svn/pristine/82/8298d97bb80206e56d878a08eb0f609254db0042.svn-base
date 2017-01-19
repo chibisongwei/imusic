@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/layout_local_music"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@drawable/bg_white2gray_selector"
+        android:gravity="center_vertical"
+        android:paddingLeft="4dp">
+
+        <ImageView
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/music_icn_local" />
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:paddingLeft="4dp">
+
+            <TextView
+                android:id="@+id/tv_local_music"
+                style="@style/tv_other_style"
+                android:layout_centerVertical="true"
+                android:text="@string/local_music" />
+
+            <TextView
+                style="@style/tv_caption_style"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="8dp"
+                android:layout_toRightOf="@id/tv_local_music"
+                android:text="()" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_alignParentBottom="true"
+                android:background="@color/divider_color" />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_recent_play"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@drawable/bg_white2gray_selector"
+        android:gravity="center_vertical"
+        android:paddingLeft="4dp">
+
+        <ImageView
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/music_icn_recent" />
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:paddingLeft="4dp">
+
+            <TextView
+                android:id="@+id/tv_recent_play"
+                style="@style/tv_other_style"
+                android:layout_centerVertical="true"
+                android:text="@string/recent_play" />
+
+            <TextView
+                style="@style/tv_caption_style"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="8dp"
+                android:layout_toRightOf="@id/tv_recent_play"
+                android:text="()" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_alignParentBottom="true"
+                android:background="@color/divider_color" />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_download"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@drawable/bg_white2gray_selector"
+        android:gravity="center_vertical"
+        android:paddingLeft="4dp">
+
+        <ImageView
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/music_icn_dld" />
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:paddingLeft="4dp">
+
+            <TextView
+                android:id="@+id/tv_download"
+                style="@style/tv_other_style"
+                android:layout_centerVertical="true"
+                android:text="@string/download_manage" />
+
+            <TextView
+                style="@style/tv_caption_style"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="8dp"
+                android:layout_toRightOf="@id/tv_download"
+                android:text="()" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_alignParentBottom="true"
+                android:background="@color/divider_color" />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_my_singer"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@drawable/bg_white2gray_selector"
+        android:gravity="center_vertical"
+        android:paddingLeft="4dp">
+
+        <ImageView
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/music_icn_artist" />
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:paddingLeft="4dp">
+
+            <TextView
+                android:id="@+id/tv_my_singer"
+                style="@style/tv_other_style"
+                android:layout_centerVertical="true"
+                android:text="@string/my_singer" />
+
+            <TextView
+                style="@style/tv_caption_style"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="8dp"
+                android:layout_toRightOf="@id/tv_my_singer"
+                android:text="()" />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/layout_list_header"
+        android:layout_width="match_parent"
+        android:layout_height="32dp"
+        android:background="@color/bg_gray"
+        android:paddingLeft="8dp"
+        android:paddingRight="16dp">
+
+        <ImageView
+            android:id="@+id/icon_list_head"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:scaleType="centerCrop"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/list_head_icn_open" />
+
+        <TextView
+            android:id="@+id/tv_name"
+            style="@style/tv_caption_style"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="8dp"
+            android:layout_toRightOf="@id/icon_list_head"
+            android:text="@string/created_list" />
+
+        <TextView
+            android:id="@+id/tv_list_count"
+            style="@style/tv_caption_style"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/tv_name"
+            android:text="(1)" />
+
+        <ImageView
+            android:id="@+id/icon_list_more"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/list_icn_more" />
+    </RelativeLayout>
+
+</LinearLayout>
