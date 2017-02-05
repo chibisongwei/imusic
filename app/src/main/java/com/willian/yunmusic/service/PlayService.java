@@ -13,6 +13,7 @@ import com.willian.yunmusic.manager.MusicPlayer;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -28,6 +29,8 @@ public class PlayService extends Service implements AudioManager.OnAudioFocusCha
     private List<MusicInfo> mPlayList = new ArrayList<>();
     // 是否在锁屏界面显示专辑封面
     private boolean mShowAlbumOnLockscreen;
+
+    private HashMap<Long, MusicInfo> mPlaylistInfo = new HashMap<>();
 
     @Override
     public void onCreate() {
@@ -106,6 +109,21 @@ public class PlayService extends Service implements AudioManager.OnAudioFocusCha
         public void setLockscreenAlbum(boolean enabled) throws RemoteException {
             mService.get().setLockscreenAlbum(enabled);
         }
+
+        @Override
+        public long seek(long pos) throws RemoteException {
+            return mService.get().seek(pos);
+        }
+
+        @Override
+        public long[] getQueue() throws RemoteException {
+            return mService.get().getQueue();
+        }
+
+        @Override
+        public String[] getAlbumPathAll() throws RemoteException {
+            return mService.get().getAlbumPathAll();
+        }
     }
 
     /**
@@ -164,6 +182,44 @@ public class PlayService extends Service implements AudioManager.OnAudioFocusCha
         return mMusicPlayer.getPosition();
     }
 
+    public long seek(long position) {
+        if (position < 0) {
+            position = 0;
+        } else if (position > mMusicPlayer.getDuration()) {
+            position = mMusicPlayer.getDuration();
+        }
+        long result = mMusicPlayer.seek(position);
+        return result;
+    }
+
+    public long[] getQueue() {
+        synchronized (this) {
+            final int len = mPlayList.size();
+            final long[] list = new long[len];
+            for (int i = 0; i < len; i++) {
+                list[i] = mPlayList.get(i).musicId;
+            }
+            return list;
+        }
+    }
+
+    public String[] getAlbumPathAll() {
+        synchronized (this){
+            try {
+                int len = mPlaylistInfo.size();
+                String[] albums = new String[len];
+                long[] queue = getQueue();
+                for (int i = 0; i < len; i++) {
+                    albums[i] = mPlaylistInfo.get(queue[i]).musicAlbum;
+                }
+                return albums;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return new String[]{};
+        }
+    }
+
     public String getMusicTitle(int position) {
         MusicInfo musicInfo = mPlayList.get(position);
         String musicTitle = musicInfo.getMusicTitle();
@@ -175,7 +231,7 @@ public class PlayService extends Service implements AudioManager.OnAudioFocusCha
         notifyChange(Constant.Action.META_CHANGED);
     }
 
-    private void notifyChange(final String what){
+    private void notifyChange(final String what) {
         if (what.equals(Constant.Action.META_CHANGED)) {
             //
         }

@@ -24,4 +24,10 @@ interface IPlayerService {
     boolean isPlaying();
 
     void setLockscreenAlbum(boolean enabled);
+
+    long seek(long pos);
+
+    long[] getQueue();
+
+    String[] getAlbumPathAll();
 }

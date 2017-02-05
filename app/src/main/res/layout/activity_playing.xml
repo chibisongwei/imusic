@@ -31,43 +31,48 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
-                <android.support.percent.PercentRelativeLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:layout_weight="1"
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_centerInParent="true"
-                        android:layout_margin="3dp"
+                        android:layout_width="263dp"
+                        android:layout_height="263dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="60dp"
                         android:scaleType="fitCenter"
-                        android:src="@drawable/play_disc_halo"
-                        app:layout_heightPercent="77%"
-                        app:layout_widthPercent="76%" />
+                        android:src="@drawable/play_disc_halo" />
 
-                    <com.willian.yunmusic.widget.CoverViewPager
-                        android:id="@+id/vp_music_cover"
+                    <com.willian.yunmusic.widget.AlbumViewPager
+                        android:id="@+id/view_pager"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_centerInParent="true"
-                        android:layout_gravity="center_horizontal" />
+                        android:layout_height="263dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="60dp" />
+
+                    <View
+                        android:id="@+id/view_line"
+                        android:layout_width="match_parent"
+                        android:layout_height="1.0dip"
+                        android:layout_alignParentTop="true"
+                        android:background="@drawable/play_topbar_line" />
 
                     <ImageView
                         android:id="@+id/needle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:layout_alignParentTop="true"
+                        android:layout_below="@+id/view_line"
+                        android:layout_marginRight="100dp"
                         android:layout_marginTop="-16dp"
                         android:rotation="-30"
                         android:src="@drawable/play_needle"
                         android:transformPivotX="15.1dp"
-                        android:transformPivotY="15.1dp"
-                        app:layout_marginRightPercent="23%" />
-                </android.support.percent.PercentRelativeLayout>
+                        android:transformPivotY="15.1dp" />
+                </RelativeLayout>
 
                 <LinearLayout
                     android:id="@+id/ll_music_tool"
@@ -115,10 +120,41 @@
             </LinearLayout>
 
             <RelativeLayout
-                android:id="@+id/ll_lyric"
+                android:id="@+id/rl_lyric"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:visibility="gone">
+                android:visibility="invisible">
+
+                <LinearLayout
+                    android:id="@+id/volume_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="22dp"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="20dp"
+                        android:src="@mipmap/play_icn_speaker" />
+
+                    <SeekBar
+                        android:id="@+id/volume_seek"
+                        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="40dp"
+                        android:focusable="true"
+                        android:maxHeight="2dp"
+                        android:minHeight="2dp"
+                        android:progress="30"
+                        android:progressDrawable="@drawable/volume_seekbar_selector"
+                        android:thumb="@mipmap/play_volumebar_btn"
+                        android:thumbOffset="3.0dip" />
+                </LinearLayout>
 
                 <com.willian.yunmusic.widget.LyricView
                     android:id="@+id/music_lyric"
@@ -126,7 +162,7 @@
                     android:layout_height="match_parent" />
 
                 <TextView
-                    android:id="@+id/tragetlrc"
+                    android:id="@+id/target_lrc"
                     style="@style/tv_caption_style"
                     android:layout_alignParentBottom="true"
                     android:layout_centerHorizontal="true"

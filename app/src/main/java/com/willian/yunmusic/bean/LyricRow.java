@@ -128,4 +128,24 @@ public class LyricRow implements Comparable<LyricRow> {
                 + Integer.parseInt(times[1]) * 1000
                 + Integer.parseInt(times[2]);
     }
+
+    private OnSeekToListener onSeekToListener;
+
+    public void setOnSeekToListener(OnSeekToListener onSeekToListener) {
+        this.onSeekToListener = onSeekToListener;
+    }
+
+    public interface OnSeekToListener {
+        void onSeekTo(int progress);
+    }
+
+    private OnLrcClickListener onLrcClickListener;
+
+    public void setOnLrcClickListener(OnLrcClickListener onLrcClickListener) {
+        this.onLrcClickListener = onLrcClickListener;
+    }
+
+    public interface OnLrcClickListener {
+        void onClick();
+    }
 }

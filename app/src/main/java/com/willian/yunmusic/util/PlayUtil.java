@@ -19,7 +19,13 @@ import java.util.List;
 
 public class PlayUtil {
 
+    private static final long[] sEmptyList;
+
     private static IPlayerService mPlayService;
+
+    static {
+        sEmptyList = new long[0];
+    }
 
     /**
      * 绑定服务
@@ -123,6 +129,36 @@ public class PlayUtil {
             }
         }
         return 0;
+    }
+
+    public static void seek(final long position) {
+        if (mPlayService != null) {
+            try {
+                mPlayService.seek(position);
+            } catch (final RemoteException ignored) {
+            }
+        }
+    }
+
+    public static final long[] getQueue() {
+        try {
+            if (mPlayService != null) {
+                return mPlayService.getQueue();
+            } else {
+            }
+        } catch (final RemoteException ignored) {
+        }
+        return sEmptyList;
+    }
+
+    public static final String[] getAlbumPathAll() {
+        if (mPlayService != null) {
+            try {
+                return mPlayService.getAlbumPathAll();
+            } catch (final RemoteException ignored) {
+            }
+        }
+        return null;
     }
 
     public static void initPlaybackServiceWithSettings() {

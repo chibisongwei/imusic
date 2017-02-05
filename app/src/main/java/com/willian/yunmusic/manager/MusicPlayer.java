@@ -176,11 +176,22 @@ public class MusicPlayer implements MediaPlayer.OnCompletionListener, MediaPlaye
         return -1;
     }
 
-    public long getPosition(){
+    public long getPosition() {
         if (mMediaPlayer != null) {
             return mMediaPlayer.getCurrentPosition();
         }
         return -1;
+    }
+
+    /**
+     * 指定播放位置
+     *
+     * @param whereto
+     * @return
+     */
+    public long seek(final long whereto) {
+        mMediaPlayer.seekTo((int) whereto);
+        return whereto;
     }
 
     /**

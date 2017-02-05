@@ -3,7 +3,7 @@ package com.willian.yunmusic.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import com.willian.yunmusic.BaseActivity;
+
 import com.willian.yunmusic.R;
 
 /**

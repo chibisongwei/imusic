@@ -7,10 +7,19 @@ import android.view.View;
 import android.view.ViewGroup;
 
 /**
- * 单曲
+ * Created by willian on 2017/2/5.
  */
 
-public class AlbumFragment extends Fragment {
+public class RoundFragment extends Fragment {
+
+    public static RoundFragment newInstance(String albumpath) {
+        RoundFragment fragment = new RoundFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("album", albumpath);
+        fragment.setArguments(bundle);
+        return fragment;
+    }
+
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return super.onCreateView(inflater, container, savedInstanceState);

@@ -28,23 +28,23 @@ public class PlaybackReceiver extends BroadcastReceiver {
             String action = intent.getAction();
             switch (action) {
                 // 清空播放列表
-                case Constant.EMPTY_PLAY_QUEUE:
+                case Constant.Action.EMPTY_PLAY_QUEUE:
 
                     break;
                 // 播放列表变化
-                case Constant.PLAY_QUEUE_CHANGED:
+                case Constant.Action.PLAY_QUEUE_CHANGED:
                     baseActivity.updatePlayQueue();
                     break;
                 // 歌曲准备完毕
-                case Constant.MUSIC_PREPARED:
+                case Constant.Action.MUSIC_PREPARED:
                     baseActivity.updateMusicTime();
                     break;
                 // 更新歌曲信息
-                case Constant.UPDATE_MUSIC_INFO:
+                case Constant.Action.UPDATE_MUSIC_INFO:
                     baseActivity.updateMusicInfo();
                     break;
                 // 更新歌曲的缓冲进度
-                case Constant.UPDATE_BUFFER_PROGRESS:
+                case Constant.Action.UPDATE_BUFFER_PROGRESS:
                     baseActivity.updateBufferProgress();
                     break;
                 default:
