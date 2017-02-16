@@ -1,8 +1,12 @@
 package com.willian.yunmusic.service;
 
 import android.app.Service;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.media.AudioManager;
+import android.os.Environment;
 import android.os.IBinder;
 import android.os.RemoteException;
 
@@ -11,6 +15,10 @@ import com.willian.yunmusic.bean.MusicInfo;
 import com.willian.yunmusic.constant.Constant;
 import com.willian.yunmusic.manager.MusicPlayer;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -31,11 +39,19 @@ public class PlayService extends Service implements AudioManager.OnAudioFocusCha
     private boolean mShowAlbumOnLockscreen;
 
     private HashMap<Long, MusicInfo> mPlaylistInfo = new HashMap<>();
+    // 播放位置索引
+    private int mPlayPos = -1;
+
+    private RequestLrc mRequestLrc;
 
     @Override
     public void onCreate() {
         super.onCreate();
         mMusicPlayer = MusicPlayer.getInstance(this);
+        // 动态注册广播
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(Constant.Action.GET_MUSIC_INFO);
+        registerReceiver(mIntentReceiver, intentFilter);
     }
 
     @Override
@@ -47,6 +63,8 @@ public class PlayService extends Service implements AudioManager.OnAudioFocusCha
     public void onDestroy() {
         super.onDestroy();
         mMusicPlayer.release();
+
+        unregisterReceiver(mIntentReceiver);
     }
 
     /**
@@ -204,7 +222,7 @@ public class PlayService extends Service implements AudioManager.OnAudioFocusCha
     }
 
     public String[] getAlbumPathAll() {
-        synchronized (this){
+        synchronized (this) {
             try {
                 int len = mPlaylistInfo.size();
                 String[] albums = new String[len];
@@ -254,6 +272,61 @@ public class PlayService extends Service implements AudioManager.OnAudioFocusCha
                     mMusicPlayer.pause();
                 }
                 break;
+        }
+    }
+
+    private BroadcastReceiver mIntentReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            handleIntent(intent);
+        }
+    };
+
+    private void handleIntent(Intent intent) {
+        String action = intent.getAction();
+        switch (action) {
+            case Constant.Action.GET_MUSIC_INFO:
+                // 获取歌词和专辑封面
+                getLrc(mPlayList.get(mPlayPos).musicId);
+                break;
+        }
+    }
+
+    /**
+     * 获取并保存歌词
+     */
+    private void getLrc(long id) {
+        String lrcPath = Environment.getExternalStorageDirectory().getAbsolutePath() + Constant.LRC_PATH;
+        File file = new File(lrcPath + id);
+        if (!file.exists()) {
+            if(mRequestLrc != null){
+            }
+        }
+
+    }
+
+    /**
+     * 将歌词写入文件
+     *
+     * @param file
+     * @param lrc
+     */
+    private synchronized void saveLrcToFile(File file, String lrc) {
+        try {
+            FileOutputStream os = new FileOutputStream(file);
+            os.write(lrc.getBytes());
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private class RequestLrc implements Runnable{
+
+        @Override
+        public void run() {
+
         }
     }
 }

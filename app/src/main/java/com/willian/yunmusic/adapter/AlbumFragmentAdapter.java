@@ -2,16 +2,13 @@ package com.willian.yunmusic.adapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.willian.yunmusic.fragment.RoundFragment;
 import com.willian.yunmusic.util.PlayUtil;
 
-import java.util.List;
-
 /**
- * Created by willian on 2016/7/27.
+ * 专辑封面适配器
  */
 public class AlbumFragmentAdapter extends FragmentStatePagerAdapter {
 

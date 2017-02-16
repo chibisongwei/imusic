@@ -142,6 +142,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         mMenuLayout = (NavigationView) findViewById(R.id.layout_menu);
         mMenuIcon = (ImageView) findViewById(R.id.iv_menu);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+
         mToolbar = (Toolbar) findViewById(R.id.tool_bar);
         setSupportActionBar(mToolbar);
 

@@ -17,7 +17,8 @@
             android:layout_height="?actionBarSize"
             android:background="@color/theme_color"
             android:fitsSystemWindows="true"
-            app:theme="@style/ToolbarStyle">
+            android:theme="@style/ToolbarStyle"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
             <RelativeLayout
                 android:layout_width="match_parent"

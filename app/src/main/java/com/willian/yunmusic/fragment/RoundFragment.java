@@ -12,14 +12,13 @@ import android.view.ViewGroup;
 
 public class RoundFragment extends Fragment {
 
-    public static RoundFragment newInstance(String albumpath) {
+    public static RoundFragment newInstance(String albumPath) {
         RoundFragment fragment = new RoundFragment();
         Bundle bundle = new Bundle();
-        bundle.putString("album", albumpath);
+        bundle.putString("album", albumPath);
         fragment.setArguments(bundle);
         return fragment;
     }
-
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return super.onCreateView(inflater, container, savedInstanceState);

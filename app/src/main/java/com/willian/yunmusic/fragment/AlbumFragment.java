@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 /**
- * 单曲
+ *
  */
 
 public class AlbumFragment extends Fragment {

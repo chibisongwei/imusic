@@ -1,15 +1,19 @@
 package com.willian.yunmusic.activity;
 
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.Toolbar;
+import android.widget.TextView;
 
 import com.willian.yunmusic.R;
 import com.willian.yunmusic.adapter.AlbumFragmentAdapter;
-import com.willian.yunmusic.fragment.AlbumFragment;
+import com.willian.yunmusic.constant.Constant;
 import com.willian.yunmusic.util.PlayUtil;
 import com.willian.yunmusic.widget.AlbumViewPager;
 import com.willian.yunmusic.widget.LyricView;
@@ -33,6 +37,14 @@ public class PlayingActivity extends BaseActivity {
     private LyricView mLyricView;
 
     private AlbumFragmentAdapter mAdapter;
+    // 属性动画
+    private ObjectAnimator mAnimator;
+
+    private ObjectAnimator mNeedleAnim;
+    // 组合动画
+    private AnimatorSet mAnimatorSet;
+
+    private TextView mGetLrcText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,13 +56,14 @@ public class PlayingActivity extends BaseActivity {
 
     private void initView() {
         mToolbar = (Toolbar) findViewById(R.id.tool_bar);
+        setSupportActionBar(mToolbar);
 
         mCoverLayout = (LinearLayout) findViewById(R.id.ll_cover);
 
         mViewPager = (AlbumViewPager) findViewById(R.id.view_pager);
         mViewPager.setOffscreenPageLimit(2);
 
-        PlaybarPagerTransformer transformer = new PlaybarPagerTransformer();
+        AlbumPagerTransformer transformer = new AlbumPagerTransformer();
         mAdapter = new AlbumFragmentAdapter(getSupportFragmentManager());
         mViewPager.setAdapter(mAdapter);
         mViewPager.setPageTransformer(true, transformer);
@@ -107,13 +120,36 @@ public class PlayingActivity extends BaseActivity {
                 }
             }
         });
+
+        mGetLrcText = (TextView) findViewById(R.id.tv_get_lrc);
+        // 点击获取歌词和专辑封面信息
+        mGetLrcText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setAction(Constant.Action.GET_MUSIC_INFO);
+                sendBroadcast(intent);
+            }
+        });
     }
 
-    private class PlaybarPagerTransformer implements ViewPager.PageTransformer {
+    /**
+     * ViewPager切换的动画效果
+     */
+    private class AlbumPagerTransformer implements ViewPager.PageTransformer {
 
         @Override
         public void transformPage(View page, float position) {
+            if (position == 0) {
+                if (PlayUtil.isPlaying()) {
+                    mAnimator = (ObjectAnimator) page.getTag(R.id.tag_animator);
+                    if (mAnimator != null && !mAnimator.isRunning()) {
+                        mAnimatorSet = new AnimatorSet();
+                    }
+                }
+            } else if (position == 1 || position == -2 || position == -1) {
 
+            }
         }
     }
 }

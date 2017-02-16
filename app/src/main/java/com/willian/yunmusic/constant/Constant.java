@@ -7,6 +7,12 @@ public class Constant {
     // 是否打印日志
     public static final boolean IS_SHOW_LOG = true;
 
+    public static final String LRC_PATH = "/yunmusic/lrc/";
+
+    public static final float SCALE_DISC_SIZE = (float) (813.0 / 1080.0);
+
+    public static final float SCALE_MUSIC_SIZE = (float) (533.0 / 1080.0);
+
     public static final class PlayMode {
         // 无效
         public static final int STATUS_INVALID = -1;
@@ -38,5 +44,7 @@ public class Constant {
         public static final String MUSIC_COUNT_CHANGED = "com.willian.yunmusic.musiccountchanged";
 
         public static final String META_CHANGED = "com.willian.yunmusic.metachanged";
+        // 获取歌词信息和封面
+        public static final String GET_MUSIC_INFO = "com.willian.yunmusic.getmusicinfo";
     }
 }
